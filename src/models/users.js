@@ -8,8 +8,7 @@ var User = new Schema({
 		id: String,
 		displayName: String,
 		username: String,
-	},
-	latestSearch: String
+	}
 })
 
 module.exports = {
