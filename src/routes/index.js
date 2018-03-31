@@ -55,4 +55,7 @@ module.exports = function (app, passport) {
 
 	app.route('/api/search/')
 		.post(Search.getBusinesses)
+
+	app.route('/api/:id/going/')
+		.post(isLoggedIn, Search.updateGoing)
 }
