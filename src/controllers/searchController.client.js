@@ -1,5 +1,6 @@
 var businesses;
 
+
 $(document).ready(function () {
   var path = window.location.pathname;
   var d = { "location": window.location.search.substring(3) };
@@ -12,7 +13,7 @@ $(document).ready(function () {
     success: function (r) {
       businesses = r.businesses;
       businesses.forEach(function (bus, index) {
-        let something = `
+        let h = `
           <div class="row my-2">
             <div class="col-12 col-sm-12 col-md-2">
               <image class="img-fluid business-img" src=${bus.image_url}/>
@@ -34,14 +35,12 @@ $(document).ready(function () {
               </div>
             </div>
             <div class="col-12 col-sm-12 col-md-2">
-              <button class="btn btn-primary btn-block going-btn" type="button" onclick={handleLike(${index})}>Going</button>
+              <button class="btn btn-primary btn-block going-btn" id="going-${index}" type="button" onclick={handleGoing(${index})}>Going</button>
             </div>
           </div>
         `;
 
-        console.log(something);
-
-        $("#res").append(something);
+        $("#res").append(h);
       });
       $("#res").append(r.businesses[0]);
     },
@@ -52,18 +51,21 @@ $(document).ready(function () {
 });
 
 
-function handleLike(index) {
-  var d = { "business_id": businesses[index].id };
+function handleGoing(index) {
+  $(`#going-${index}`).attr("disabled", "disabled");
+  var d = { "yelp_id": businesses[index].id };
   console.log(d);
   $.ajax({
-    url: "/api/:id/like/",
+    type: "POST",
+    url: "/api/:id/going/",
     data: d,
     dataType: "json",
     success: function (res) {
       console.log(res);
+      $(`#going-${index}`).removeAttr("disabled");
     },
     error: function (err) {
-      console.log(err);
+      if (err) window.location.href = "/login/";
     }
   });
 }
