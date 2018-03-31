@@ -1,4 +1,5 @@
 const User = require('../models/users.js')
+const Business = require('../models/businesses.js')
 const Request = require('request')
 
 const Fake = {
@@ -134,8 +135,37 @@ class Search {
     //   console.log(JSON.parse(body).businesses.length);
     //   res.json(JSON.parse(body))
     // })
-    console.log(Fake)
+    // console.log(Fake)
     res.json(Fake)
+  }
+  
+  static updateGoing(req, res) {
+    let yelp_id = req.body.yelp_id
+    let uid = req.user.twitter.id
+    Business.findOne({ yelp_id: yelp_id })
+      .exec(function (err, data) {
+        if (err) throw err
+        if (data === null) {
+          let b = new Business({
+            yelp_id: yelp_id,
+            going: [uid]
+          })
+          b.save(function (err) {
+            if (err) throw err
+          })
+          res.json(b)
+        } else {
+          if (data.going.includes(uid)) {
+            data.going = data.going.filter(function (user) {
+              return user !== uid
+            })
+          } else { data.going.push(uid) }
+          data.save(function (err) {
+            if (err) throw err
+          })
+          res.json(data)
+        }
+      })
   }
 }
 
