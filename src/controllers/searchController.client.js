@@ -50,3 +50,20 @@ $(document).ready(function () {
     }
   });
 });
+
+
+function handleLike(index) {
+  var d = { "business_id": businesses[index].id };
+  console.log(d);
+  $.ajax({
+    url: "/api/:id/like/",
+    data: d,
+    dataType: "json",
+    success: function (res) {
+      console.log(res);
+    },
+    error: function (err) {
+      console.log(err);
+    }
+  });
+}
