@@ -1,5 +1,4 @@
-var businesses;
-
+var bus;
 
 $(document).ready(function () {
   var path = window.location.pathname;
@@ -11,38 +10,37 @@ $(document).ready(function () {
     data: d,
     dataType: "json",
     success: function (r) {
-      businesses = r.businesses;
-      businesses.forEach(function (bus, index) {
+      bus = r;
+      for (var i = 0; i < bus.businesses.length; i++) {
         let h = `
           <div class="row my-2">
             <div class="col-12 col-sm-12 col-md-2">
-              <image class="img-fluid business-img" src=${bus.image_url}/>
+              <image class="img-fluid business-img" src=${bus.businesses[i].image_url}/>
             </div>
             <div class="col-12 col-sm-12 col-md-6">
               <div class="row">
-                <div class="col-12">${bus.name}</div>
+                <div class="col-12">${bus.businesses.name}</div>
                 <div class="col-12">
-                  ${bus.categories[0].title}, ${bus.categories[1].title}...
+                  ${bus.businesses[i].categories[0].title}, ${bus.businesses[i].categories[1].title}...
                 </div>
-                <div class="col-12">${bus.display_phone}</div>
+                <div class="col-12">${bus.businesses.display_phone}</div>
               </div>
             </div>
             <div class="col-12 col-sm-12 col-md-2">
               <div class="row">
-                <div class="col-12">${bus.rating}/5.0</div>
-                <div class="col-12">${bus.review_count}</div>
-                <div class="col-12">${bus.price}</div>
+                <div class="col-12">${bus.businesses[i].rating}/5.0</div>
+                <div class="col-12">${bus.businesses[i].review_count}</div>
+                <div class="col-12">${bus.businesses[i].price}</div>
               </div>
             </div>
             <div class="col-12 col-sm-12 col-md-2">
-              <button class="btn btn-primary btn-block going-btn" id="going-${index}" type="button" onclick={handleGoing(${index})}>Going</button>
+              <button class="btn btn-primary btn-block going-btn" id="going-${i}" type="button" onclick={handleGoing(${i})}>${bus.going[i].length} Going</button>
             </div>
           </div>
         `;
 
         $("#res").append(h);
-      });
-      $("#res").append(r.businesses[0]);
+      }
     },
     error: function (err) {
       console.log(err);
@@ -53,7 +51,7 @@ $(document).ready(function () {
 
 function handleGoing(index) {
   $(`#going-${index}`).attr("disabled", "disabled");
-  var d = { "yelp_id": businesses[index].id };
+  var d = { "yelp_id": bus.businesses[index].id };
   console.log(d);
   $.ajax({
     type: "POST",
@@ -61,7 +59,7 @@ function handleGoing(index) {
     data: d,
     dataType: "json",
     success: function (res) {
-      console.log(res);
+      $(`#going-${index}`).html(`${res.going.length} Going`);
       $(`#going-${index}`).removeAttr("disabled");
     },
     error: function (err) {

@@ -113,6 +113,7 @@ const Fake = {
 
 class Search {
   static getBusinesses(req, res) {
+
     //TODO: Save user search
 
     // TODO: Get Yelp responses
@@ -136,9 +137,24 @@ class Search {
     //   res.json(JSON.parse(body))
     // })
     // console.log(Fake)
-    res.json(Fake)
+
+    // TODO: Get business likes
+    let returnData = {
+      "businesses": Fake.businesses,
+      "going": null
+    }
+
+    let x = Fake.businesses.map((d, index) => { return d.id })
+
+    Business.find({ 'yelp_id': { $in: x } })
+      .exec(function (err, data) {
+        if (err) throw err
+        returnData.going = data.map((d) => { return d.going })
+
+        res.json(returnData)
+      })
   }
-  
+
   static updateGoing(req, res) {
     let yelp_id = req.body.yelp_id
     let uid = req.user.twitter.id
