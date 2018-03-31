@@ -12,26 +12,37 @@ $(document).ready(function () {
     success: function (r) {
       if (!r.empty) {
         bus = r;
+
         for (var i = 0; i < bus.businesses.length; i++) {
+          var img = (bus.businesses[i].image_url) ? `<image class="img-fluid business-img" src=${bus.businesses[i].image_url}/>` : "";
+          var bname = (bus.businesses[i].name) ? `${bus.businesses[i].name}` : "";
+          var bcat1 = (bus.businesses[i].categories[0]) ? `${bus.businesses[i].categories[0].title}` : "";
+          var bcat2 = (bus.businesses[i].categories[1]) ? `,<span> </span>${bus.businesses[i].categories[1].title}...` : "";
+          var bcatp = (bus.businesses[i].categories[0]) ? "..." : "";
+          var phone = (bus.businesses[i].display_phone) ? `${bus.businesses[i].display_phone}` : "";
+          var rating = (bus.businesses[i].rating) ? `${bus.businesses[i].rating}` : "";
+          var review = (bus.businesses[i].review_count) ? `${bus.businesses[i].review_count}` : "";
+          var price = (bus.businesses[i].price) ? `${bus.businesses[i].price}` : "";
+
           let h = `
             <div class="row my-2">
               <div class="col-12 col-sm-12 col-md-2">
-                <image class="img-fluid business-img" src=${bus.businesses[i].image_url}/>
+                ${img}
               </div>
               <div class="col-12 col-sm-12 col-md-6">
                 <div class="row">
-                  <div class="col-12">${bus.businesses[i].name}</div>
+                  <div class="col-12">${bname}</div>
                   <div class="col-12">
-                    ${bus.businesses[i].categories[0].title}, ${bus.businesses[i].categories[1].title}...
+                    ${bcat1}${bcat2}${bcatp}
                   </div>
-                  <div class="col-12">${bus.businesses[i].display_phone}</div>
+                  <div class="col-12">${phone}</div>
                 </div>
               </div>
               <div class="col-12 col-sm-12 col-md-2">
                 <div class="row">
-                  <div class="col-12">${bus.businesses[i].rating}/5.0</div>
-                  <div class="col-12">${bus.businesses[i].review_count}</div>
-                  <div class="col-12">${bus.businesses[i].price}</div>
+                  <div class="col-12">${rating}/5.0</div>
+                  <div class="col-12">${review}</div>
+                  <div class="col-12">${price}</div>
                 </div>
               </div>
               <div class="col-12 col-sm-12 col-md-2">

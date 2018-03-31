@@ -120,7 +120,7 @@ class Search {
       method: 'GET',
       url: 'https://api.yelp.com/v3/businesses/search',
       type: 'json',
-      qs: { category: 'nightlife', location: req.body.location, limit: 10 },
+      qs: { category: 'nightlife', location: req.body.location, limit: 20 },
       headers: {
         'postman-token': 'ac2a1b10-5ce0-d01d-9480-6a706a42a88b',
         'cache-control': 'no-cache',
