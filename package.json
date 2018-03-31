@@ -1,0 +1,30 @@
+{
+  "name": "FCC-Nightlife-App",
+  "version": "1.0.0",
+  "description": "A polling app",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rclong1221/FCC-Nightlife-App"
+  },
+  "homepage": "",
+  "bugs": "https://github.com/rclong1221/FCC-Nightlife-App/issues",
+  "keywords": [],
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "R.C. Long",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "dotenv": "^1.2.0",
+    "express": "^4.12.4",
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.11.3",
+    "mongoose": "^4.1.0",
+    "oauth": "^0.9.15",
+    "passport": "^0.3.0",
+    "passport-twitter": "^1.0.4",
+    "path": "^0.12.7"
+  }
+}
