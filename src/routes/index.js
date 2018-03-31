@@ -1,6 +1,7 @@
 'use strict'
 
-var path = process.cwd()
+const path = process.cwd()
+const Search = require(path + '/src/controllers/searchController.server.js')
 
 module.exports = function (app, passport) {
 
@@ -46,4 +47,12 @@ module.exports = function (app, passport) {
 			successRedirect: '/',
 			failureRedirect: '/login'
 		}))
+
+	app.route('/search/')
+		.get(function (req, res) {
+			res.sendFile(path + '/public/search.html')
+		})
+
+	app.route('/api/search/')
+		.post(Search.getBusinesses)
 }

@@ -70,19 +70,10 @@ a, a:hover, a:visited {
   border-color: #8b4c39
 }
 
-/****** my-polls Poll Styling ******/
-.my-polls-poll {
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
+.business-img {
+  max-width: 100%;
 }
 
-.my-edit-btn {
-  border-radius: 0px;
-  height: 100%;
-}
-
-.my-delete-btn {
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px;
+.going-btn {
   height: 100%;
 }
