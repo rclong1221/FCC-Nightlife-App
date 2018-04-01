@@ -12,6 +12,7 @@ $(document).ready(function () {
     dataType: "json",
     success: function (r) {
       if (!r.empty) {
+        var t = 300;
         bus = r;
         printResultsCounter(bus.businesses);
         for (var i = 0; i < bus.businesses.length; i++) {
@@ -26,7 +27,7 @@ $(document).ready(function () {
           var price = (bus.businesses[i].price) ? `${bus.businesses[i].price}` : "";
 
           let h = `
-            <div class="row my-2 py-2 border rounded">
+            <div class="row my-2 py-2 border rounded bus-container" id="b-c-${i}">
               <div class="col-12 col-sm-12 col-md-2">
                 ${img}
               </div>
@@ -52,7 +53,10 @@ $(document).ready(function () {
             </div>
           `;
 
-          $("#res").append(h);
+          $("#res").prepend(h);
+          $(`#b-c-${i}`).hide();
+          $(`#b-c-${i}`).fadeIn(t);
+          t = t + 50;
         }
       }
     },
