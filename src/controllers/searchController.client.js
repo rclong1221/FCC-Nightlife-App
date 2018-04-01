@@ -1,9 +1,10 @@
-var bus;
+var bus, path, d;
 
 $(document).ready(function () {
-  var path = window.location.pathname;
-  var d = { "location": window.location.search.substring(3) };
+  path = window.location.pathname;
+  d = { "location": window.location.search.substring(3) };
 
+  $("#q-t").html(`${d.location}...`);
   $.ajax({
     type: "POST",
     url: "/api" + path,
@@ -12,9 +13,9 @@ $(document).ready(function () {
     success: function (r) {
       if (!r.empty) {
         bus = r;
-
+        printResultsCounter(bus.businesses);
         for (var i = 0; i < bus.businesses.length; i++) {
-          var img = (bus.businesses[i].image_url) ? `<image class="img-fluid business-img" src=${bus.businesses[i].image_url}/>` : "";
+          var img = (bus.businesses[i].image_url) ? `<image class="img-fluid business-img h-100 w-100" src=${bus.businesses[i].image_url}/>` : "";
           var bname = (bus.businesses[i].name) ? `${bus.businesses[i].name}` : "";
           var bcat1 = (bus.businesses[i].categories[0]) ? `${bus.businesses[i].categories[0].title}` : "";
           var bcat2 = (bus.businesses[i].categories[1]) ? `,<span> </span>${bus.businesses[i].categories[1].title}...` : "";
@@ -25,7 +26,7 @@ $(document).ready(function () {
           var price = (bus.businesses[i].price) ? `${bus.businesses[i].price}` : "";
 
           let h = `
-            <div class="row my-2">
+            <div class="row my-2 py-2 border rounded">
               <div class="col-12 col-sm-12 col-md-2">
                 ${img}
               </div>
@@ -77,5 +78,18 @@ function handleGoing(index) {
     error: function (err) {
       if (err) window.location.href = "/login/";
     }
+  });
+}
+
+function printResultsCounter(d) {
+  var arr = Array.from(Array(d.length).keys());
+
+  var offset = 2000 / arr.length;
+  arr.forEach(function (person, index){
+    console.log(`${person}: ${index}`);
+    setTimeout(function(){
+      $("#q-n").html(index + 1);
+    }, offset);
+    offset *= 1.2;
   });
 }

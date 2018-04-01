@@ -116,63 +116,63 @@ class Search {
     // Get Yelp responses
     // To decrease the load on Yelp's servers, we limit our query
     // to a low number on server side
-    var options = {
-      method: 'GET',
-      url: 'https://api.yelp.com/v3/businesses/search',
-      type: 'json',
-      qs: { category: 'nightlife', location: req.body.location, limit: 20 },
-      headers: {
-        'postman-token': 'ac2a1b10-5ce0-d01d-9480-6a706a42a88b',
-        'cache-control': 'no-cache',
-        authorization: `Bearer ${process.env.YELP_KEY}`
-      }
-    }
-
-    Request(options, function (error, response, body) {
-      if (error) throw new Error(error)
-      if (!body) console.error("No body")
-      else if (!JSON.parse(body).businesses) {
-        res.json({ empty: true })
-
-      } else {
-        let returnData = {
-          "businesses": JSON.parse(body).businesses,
-          "going": null
-        }
-
-        let x = returnData.businesses.map((d, index) => { return d.id })
-
-        Business.find({ 'yelp_id': { $in: x } })
-          .exec(function (err, data) {
-            if (err) throw err
-
-            returnData.going = returnData.businesses.map((d) => {
-              return (x.includes(d.yelp_id)) ? d.going : []
-            })
-
-            res.json(returnData)
-          })
-      }
-    })
-
-    // Get business likes
-    // let returnData = {
-    //   "businesses": Fake.businesses,
-    //   "going": null
+    // var options = {
+    //   method: 'GET',
+    //   url: 'https://api.yelp.com/v3/businesses/search',
+    //   type: 'json',
+    //   qs: { category: 'nightlife', location: req.body.location, limit: 20 },
+    //   headers: {
+    //     'postman-token': 'ac2a1b10-5ce0-d01d-9480-6a706a42a88b',
+    //     'cache-control': 'no-cache',
+    //     authorization: `Bearer ${process.env.YELP_KEY}`
+    //   }
     // }
     //
-    // let x = returnData.businesses.map((d, index) => { return d.id })
+    // Request(options, function (error, response, body) {
+    //   if (error) throw new Error(error)
+    //   if (!body) console.error("No body")
+    //   else if (!JSON.parse(body).businesses) {
+    //     res.json({ empty: true })
     //
-    // Business.find({ 'yelp_id': { $in: x } })
-    //   .exec(function (err, data) {
-    //     if (err) throw err
+    //   } else {
+    //     let returnData = {
+    //       "businesses": JSON.parse(body).businesses,
+    //       "going": null
+    //     }
     //
-    //     returnData.going = returnData.businesses.map((d) => {
-    //       return (x.includes(d.yelp_id)) ? d.going : []
-    //     })
+    //     let x = returnData.businesses.map((d, index) => { return d.id })
     //
-    //     res.json(returnData)
-    //   })
+    //     Business.find({ 'yelp_id': { $in: x } })
+    //       .exec(function (err, data) {
+    //         if (err) throw err
+    //
+    //         returnData.going = returnData.businesses.map((d) => {
+    //           return (x.includes(d.yelp_id)) ? d.going : []
+    //         })
+    //
+    //         res.json(returnData)
+    //       })
+    //   }
+    // })
+
+    // Get business likes
+    let returnData = {
+      "businesses": Fake.businesses,
+      "going": null
+    }
+
+    let x = returnData.businesses.map((d, index) => { return d.id })
+
+    Business.find({ 'yelp_id': { $in: x } })
+      .exec(function (err, data) {
+        if (err) throw err
+
+        returnData.going = returnData.businesses.map((d) => {
+          return (x.includes(d.yelp_id)) ? d.going : []
+        })
+
+        res.json(returnData)
+      })
   }
 
   static updateGoing(req, res) {
