@@ -1,7 +1,6 @@
 /********* Fonts **********/
 
-@import url('https://fonts.googleapis.com/css?family=Raleway:500');
-@import url('https://fonts.googleapis.com/css?family=Modak');
+@import url('https://fonts.googleapis.com/css?family=Oleo+Script+Swash+Caps');
 
 /****** Main Styling ******/
 header *, body * {
@@ -25,7 +24,7 @@ input:focus:-moz-placeholder {
 
 /****** Header Styling ******/
 .navbar-brand {
-  font: 1.5em "Modak";
+  font: 1.5em "Oleo Script Swash Caps";
 }
 
 /****** Login Styling ******/
@@ -42,7 +41,7 @@ input:focus:-moz-placeholder {
 
 /****** OAuth Button Styling ******/
 .pubhub-text {
-  font: 5em "Modak";
+  font: 5em "Oleo Script Swash Caps";
   color: #2ECC71;
   cursor: default;
 }
