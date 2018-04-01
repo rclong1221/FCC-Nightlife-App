@@ -1,7 +1,7 @@
 {
   "name": "FCC-Nightlife-App",
   "version": "1.0.0",
-  "description": "A polling app",
+  "description": "A nightlife app",
   "main": "server.js",
   "repository": {
     "type": "git",
