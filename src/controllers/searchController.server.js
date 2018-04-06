@@ -132,7 +132,7 @@ class Search {
       if (error) throw new Error(error)
       if (!body) console.error("No body")
       else if (!JSON.parse(body).businesses) {
-        res.json({ empty: true })
+        return res.json({ empty: true })
 
       } else {
         let returnData = {
@@ -150,7 +150,7 @@ class Search {
               return (x.includes(d.yelp_id)) ? d.going : []
             })
 
-            res.json(returnData)
+            return res.json(returnData)
           })
       }
     })
@@ -171,7 +171,7 @@ class Search {
     //       return (x.includes(d.yelp_id)) ? d.going : []
     //     })
     //
-    //     res.json(returnData)
+    //     return res.json(returnData)
     //   })
   }
 
@@ -189,7 +189,7 @@ class Search {
           b.save(function (err) {
             if (err) throw err
           })
-          res.json(b)
+          return res.json(b)
         } else {
           if (data.going.includes(uid)) {
             data.going = data.going.filter(function (user) {
@@ -199,7 +199,7 @@ class Search {
           data.save(function (err) {
             if (err) throw err
           })
-          res.json(data)
+          return res.json(data)
         }
       })
   }
