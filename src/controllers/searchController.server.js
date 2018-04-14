@@ -33,14 +33,14 @@ class Search {
 
         let x = returnData.businesses.map((d, index) => { return d.id })
 
-        Business.find({ 'yelp_id': { $in: x } })
+        Business.find({ 'yelp_id': { $in: x } }).lean()
           .exec(function (err, data) {
             if (err) throw err
 
             returnData.going = returnData.businesses.map((d) => {
-              return (x.includes(d.yelp_id)) ? d.going : []
+              let g = data.find((item) => { return (item.yelp_id === d.id) })
+              return (g) ? g.going : []
             })
-
             return res.json(returnData)
           })
       }
@@ -50,30 +50,31 @@ class Search {
   static updateGoing(req, res) {
     let yelp_id = req.body.yelp_id
     let uid = req.user.twitter.id
-    Business.findOne({ yelp_id: yelp_id })
-      .exec(function (err, data) {
-        if (err) throw err
-        if (data === null) {
-          let b = new Business({
-            yelp_id: yelp_id,
-            going: [uid]
+    Business.findOne({ yelp_id: yelp_id }).exec()
+    .then(function (data) {
+      if (data === null) {
+        let b = new Business({
+          yelp_id: yelp_id,
+          going: [uid]
+        })
+        return b.save()
+      } else {
+        if (data.going.includes(uid)) {
+          data.going = data.going.filter(function (user) {
+            return user !== uid
           })
-          b.save(function (err) {
-            if (err) throw err
-          })
-          return res.json(b)
-        } else {
-          if (data.going.includes(uid)) {
-            data.going = data.going.filter(function (user) {
-              return user !== uid
-            })
-          } else { data.going.push(uid) }
-          data.save(function (err) {
-            if (err) throw err
-          })
-          return res.json(data)
-        }
-      })
+        } else { data.going.push(uid) }
+
+        return data.save()
+      }
+    })
+    .then(function (b) {
+      console.log(b)
+      res.status(200).json(b)
+    })
+    .catch(function (err) {
+      throw err
+    })
   }
 }
 

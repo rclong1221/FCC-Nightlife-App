@@ -25,7 +25,6 @@ $(document).ready(function () {
           var rating = (bus.businesses[i].rating) ? `${bus.businesses[i].rating}` : "";
           var review = (bus.businesses[i].review_count) ? `${bus.businesses[i].review_count}` : "";
           var price = (bus.businesses[i].price) ? `${bus.businesses[i].price}` : "";
-
           let h = `
             <div class="row my-2 py-2 border rounded bus-container" id="b-c-${i}">
               <div class="col-12 col-sm-12 col-md-2">
@@ -90,7 +89,6 @@ function printResultsCounter(d) {
 
   var offset = 2000 / arr.length;
   arr.forEach(function (person, index){
-    console.log(`${person}: ${index}`);
     setTimeout(function(){
       $("#q-n").html(index + 1);
     }, offset);
