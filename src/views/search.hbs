@@ -1,0 +1,41 @@
+<div class="container-fluid px-5 py-5">
+	<div class="row mx-1 my-1 mx-2 my-2 mx-mid-5 my-mid-5">
+		<div class="hidden-xs hidden-sm col-md-3"></div>
+		<div class="col-xs-10 col-sm-10 col-md-6 text-center login my-5">
+			<p class="pubhub-text first-color">pubhub</p>
+		</div>
+		<div class="hidden-xs hidden-sm col-md-3"></div>
+	</div>
+	<div class="row mx-1 mx-2 mx-md-5 justify-content-center" id="s-c">
+		<div class="col-md-2"></div>
+		<div class="col-md-8 mx-auto justify-content-center">
+			<form class="text-center" id="s-f" method="get" action="/search/">
+				<input class="form-control input" id="s-i" type="text" name="q"  placeholder="Enter a city..."/>
+				<button class="btn btn-primary my-2 w-25" id="s-b" type="submit">Search</button>
+			</form>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+	<div class="row mx-1 mx-2 mx-md-5">
+		<div class="hidden-xs hidden-sm"></div>
+		<div class="col-12 col-sm-12 col-md-12">
+			<div class="text-center first-color" id="">
+				Showing <span id="q-n">0</span> results for <span id="q-t"><span>...
+			</div>
+		</div>
+		<div class="hidden-xs hidden-sm"></div>
+	</div>
+	<div class="row mx-1 mx-2 mx-md-5">
+		<div class="hidden-xs hidden-sm"></div>
+		<div class="col-12 col-sm-12 col-md-12">
+			<div class="" id="res">
+			</div>
+		</div>
+		<div class="hidden-xs hidden-sm"></div>
+	</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script type="text/javascript" src="../../controllers/searchController.client.js"></script>
