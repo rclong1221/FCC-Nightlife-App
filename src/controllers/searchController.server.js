@@ -34,15 +34,15 @@ class Search {
         let x = returnData.businesses.map((d, index) => { return d.id })
 
         Business.find({ 'yelp_id': { $in: x } }).lean()
-          .exec(function (err, data) {
-            if (err) throw err
+        .exec(function (err, data) {
+          if (err) throw err
 
-            returnData.going = returnData.businesses.map((d) => {
-              let g = data.find((item) => { return (item.yelp_id === d.id) })
-              return (g) ? g.going : []
-            })
-            return res.json(returnData)
+          returnData.going = returnData.businesses.map((d) => {
+            let g = data.find((item) => { return (item.yelp_id === d.id) })
+            return (g) ? g.going : []
           })
+          return res.json(returnData)
+        })
       }
     })
   }
