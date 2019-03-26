@@ -1,10 +1,8 @@
-# pubhub
-
-https://lean-client.glitch.me/  
+# pubhub  
 
 ## Installation
 
-git clone https://github.com/rclong1221/FCC-Nightlife-App.git  
+git clone https://github.com/rclong1221/pubhub.git  
 cd "FCC-Nightlife-App"  
 npm install  
 
