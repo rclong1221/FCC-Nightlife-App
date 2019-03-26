@@ -3,7 +3,7 @@
 ## Installation
 
 git clone https://github.com/rclong1221/pubhub.git  
-cd "FCC-Nightlife-App"  
+cd "pubhub"  
 npm install  
 
 ## Setup
